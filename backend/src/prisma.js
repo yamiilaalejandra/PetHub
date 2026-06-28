@@ -3,8 +3,7 @@
 // Importo el cliente de Prisma para manejar consultas a la base
 import { PrismaClient } from "@prisma/client";
 
-// Creo una única instancia que se reutiliza en todo el proyecto
+// Uso la configuración de datasource desde prisma/schema.prisma
 const prisma = new PrismaClient();
 
-// La exporto para usar desde controllers y servicios
 export default prisma;

@@ -23,16 +23,12 @@ export default function Navbar() {
       <div className={styles.links}>
         {token ? (
           <>
-          <Link to="/" className={styles.link}>
-              Home
-            </Link>
-            <Link to="/reservar" className={styles.link}>
-              Reservar
-            </Link>
-            <Link to="/mis-reservas" className={styles.link}>Mis Reservas</Link>
-            <button onClick={handleLogout} className={styles.logout}>
-              Salir
-            </button>
+            <Link to="/" className={styles.link}>Inicio</Link>
+            <Link to="/mis-reservas" className={styles.link}>Mis Turnos</Link>
+            <Link to="/reservar" className={styles.link}>Nuevo Turno</Link>
+            <Link to="/appointments/history" className={styles.link}>Historial</Link>
+            <Link to="/profile" className={styles.link}>Perfil</Link>
+            <button onClick={handleLogout} className={styles.logout}>Cerrar sesión</button>
           </>
         ) : (
           <>

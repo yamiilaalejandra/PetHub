@@ -7,6 +7,9 @@ import Success from "./pages/Success";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Booking from "./pages/Booking";
 import MyBookings from "./pages/MyBookings";
+import AppointmentDetail from "./pages/AppointmentDetail";
+import AppointmentHistory from "./pages/AppointmentHistory";
+import AppointmentEdit from "./pages/AppointmentEdit";
 
 function App() {
   return (
@@ -29,6 +32,30 @@ function App() {
           element={
             <ProtectedRoute>
               <MyBookings />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/appointments/:id"
+          element={
+            <ProtectedRoute>
+              <AppointmentDetail />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/appointments/history"
+          element={
+            <ProtectedRoute>
+              <AppointmentHistory />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/appointments/edit/:id"
+          element={
+            <ProtectedRoute>
+              <AppointmentEdit />
             </ProtectedRoute>
           }
         />

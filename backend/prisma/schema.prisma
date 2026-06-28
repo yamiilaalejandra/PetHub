@@ -7,32 +7,98 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-/*
-  Modelo de usuario.
-  Acá guardo los datos principales y el hash de la contraseña.
-*/
+// Estado del turno para control de flujo y seguimiento en la aplicación
+enum EstadoTurno {
+  PENDIENTE
+  CONFIRMADO
+  COMPLETADO
+  CANCELADO
+}
+
+// Usuario que se registra en la plataforma
+// Relación 1:N con Mascota y Turno
 model Usuario {
   id            Int       @id @default(autoincrement())
   nombre        String
   apellido      String
   correo        String    @unique
   password_hash String
+  mascotas      Mascota[]
   turnos        Turno[]
 }
 
-/*
-  Modelo único para cualquier tipo de servicio.
-  No uso 3 tablas distintas porque todos comparten estructura.
-*/
-model Turno {
-  id               Int      @id @default(autoincrement())
-  tipoServicio     String   // antes tipo_servicio
-  fechaInicio      DateTime // antes fecha
-  horaInicio       String   // antes hora
-  cantidadMascotas Int
-  usuario          Usuario  @relation(fields: [id_usuario], references: [id])
-  id_usuario       Int
+// Mascota perteneciente a un usuario
+// Relación N:1 con Usuario y 1:N con Turno
+model Mascota {
+  id        Int     @id @default(autoincrement())
+  nombre    String
+  especie   String?
+  raza      String?
+  usuario   Usuario @relation(fields: [usuarioId], references: [id])
+  usuarioId Int
+  turnos    Turno[]
 
-  createdAt DateTime @default(now())
+  @@index([usuarioId])
 }
 
+// Servicio disponible en la plataforma
+// Relación 1:N con Turno
+model Servicio {
+  id          Int     @id @default(autoincrement())
+  nombre      String
+  clave       String  @unique
+  descripcion String?
+  turnos      Turno[]
+}
+
+// Profesional asignado a un turno
+// Relación 1:N con Turno
+model Profesional {
+  id           Int     @id @default(autoincrement())
+  nombre       String
+  especialidad String?
+  turnos       Turno[]
+}
+
+// Sucursal donde se presta el servicio
+// Relación 1:N con Turno
+model Sucursal {
+  id        Int     @id @default(autoincrement())
+  nombre    String
+  direccion String?
+  ciudad    String?
+  turnos    Turno[]
+}
+
+// Turno programado por el usuario
+// Contiene relaciones con usuario, mascota, servicio, profesional y sucursal
+model Turno {
+  id               Int         @id @default(autoincrement())
+  tipoServicio     String
+  fechaInicio      DateTime
+  horaInicio       String
+  estado           EstadoTurno @default(PENDIENTE)
+  observaciones    String?
+  cantidadMascotas Int
+
+  usuario    Usuario @relation(fields: [id_usuario], references: [id])
+  id_usuario Int
+
+  mascota   Mascota? @relation(fields: [mascotaId], references: [id])
+  mascotaId Int?
+
+  servicio   Servicio? @relation(fields: [servicioId], references: [id])
+  servicioId Int?
+
+  profesional   Profesional? @relation(fields: [profesionalId], references: [id])
+  profesionalId Int?
+
+  sucursal   Sucursal? @relation(fields: [sucursalId], references: [id])
+  sucursalId Int?
+
+  createdAt DateTime @default(now())
+
+  @@index([id_usuario])
+  @@index([fechaInicio])
+  @@index([servicioId])
+}
