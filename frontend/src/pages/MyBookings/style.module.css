@@ -1,0 +1,43 @@
+
+.page {
+  min-height: 100vh;
+  background: #f8f6ff; 
+  padding: 2rem 1rem;
+  background: linear-gradient(to bottom, #e9ddff, #ffffff);
+}
+
+
+.container {
+  padding: 2rem;
+  text-align: center;
+}
+
+.title {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #6a47f8;
+  margin-bottom: 1.5rem;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.card {
+  padding: 1rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  text-align: left;
+  color: #222;
+
+}
+
+.empty {
+  margin-top: 1rem;
+  color: #777;
+}

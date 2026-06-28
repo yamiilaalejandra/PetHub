@@ -1,0 +1,79 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to bottom, #e9ddff, #e9ddff);
+  padding: 0.8rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* Logo */
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo {
+  width: 120px;
+  height:45px;
+}
+
+.brand {
+  color: #7a5af5;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* Links */
+.links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.link {
+  color: #4b3b73;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.link:hover {
+  color: #7a5af5;
+}
+
+/* Botón de salida */
+.logout {
+  background-color: #7a5af5;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 0.4rem 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.logout:hover {
+  background-color: #6945e0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .links {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+}

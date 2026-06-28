@@ -1,0 +1,124 @@
+.loginContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #e9ddff, #ffffff);
+}
+
+.formWrapper {
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(122, 90, 245, 0.1);
+  padding: 2rem 3rem;
+  text-align: center;
+  width: 100%;
+  max-width: 420px;
+}
+
+/* Títulos */
+.title {
+  color: #7a5af5;
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: #4b3b73;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+/* Formulario */
+.form {
+  display: flex;
+  flex-direction: column;
+  
+}
+
+input {
+  padding: 0.8rem;
+  border: 1px solid #dcd6f7;
+  border-radius: 25px;
+  outline: none;
+  text-align: center;
+  transition: all 0.3s ease;
+  background-color: #faf8ff;
+  font-family: "Poppins", sans-serif;
+}
+
+input:focus {
+  border-color: #7a5af5;
+  box-shadow: 0 0 6px rgba(122, 90, 245, 0.4);
+  background-color: #fff;
+}
+
+/* Botón */
+.button {
+  background-color: #7a5af5;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 0.8rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 10px rgba(122, 90, 245, 0.3);
+  margin-top: 30px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button:hover {
+  background-color: #6945e0;
+}
+
+/* Enlaces */
+.links {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.linkMuted {
+  color: #6b6b6b;
+  text-decoration: none;
+}
+
+.linkHighlight {
+  color: #7a5af5;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.linkHighlight:hover {
+  text-decoration: underline;
+}
+
+/* Accesibilidad */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .formWrapper {
+    padding: 2rem 1.5rem;
+  }
+
+  .title {
+    font-size: 1.4rem;
+  }
+}

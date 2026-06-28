@@ -1,0 +1,139 @@
+/* 🌈 Estructura general */
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #e9ddff, #ffffff);
+  padding: 2rem;
+  color: #4b3b73;
+  font-family: "Poppins", sans-serif;
+}
+
+/* 🏠 Encabezado */
+.header {
+  max-width: 800px;
+  margin-bottom: 2rem;
+}
+
+.title {
+  color: #7a5af5;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #4a4a4a;
+  line-height: 1.6;
+}
+
+.highlight {
+  color: #7a5af5;
+  font-weight: 600;
+}
+
+/* 🐾 Cards de servicios */
+.services {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  width: 200px;
+  height: 200px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(122, 90, 245, 0.2);
+}
+
+.card img {
+  width: 200px;
+  height: 150px;
+  object-fit: contain;
+
+}
+
+.card h3 {
+  font-size: 0.95rem;
+  color: #4b3b73;
+}
+
+/* 💜 Botón CTA */
+.cta {
+  margin-top: 1rem;
+}
+
+.button {
+  background-color: #7a5af5;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(122, 90, 245, 0.4);
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #6945e0;
+}
+
+/* 📱 Footer */
+.footer {
+  margin-top: 3rem;
+  font-size: 0.9rem;
+}
+
+.socials {
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.socials a {
+  color: #7a5af5;
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.socials a:hover {
+  color: #4b3b73;
+}
+
+.icon {
+  color: #7a5af5;
+  font-size: 1.6rem;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.icon:hover {
+  color: #4b3b73;
+  transform: scale(1.1);
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .services {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 80%;
+  }
+}
