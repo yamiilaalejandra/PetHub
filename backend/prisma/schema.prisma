@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/*
+  Modelo de usuario.
+  Acá guardo los datos principales y el hash de la contraseña.
+*/
+model Usuario {
+  id            Int       @id @default(autoincrement())
+  nombre        String
+  apellido      String
+  correo        String    @unique
+  password_hash String
+  turnos        Turno[]
+}
+
+/*
+  Modelo único para cualquier tipo de servicio.
+  No uso 3 tablas distintas porque todos comparten estructura.
+*/
+model Turno {
+  id               Int      @id @default(autoincrement())
+  tipoServicio     String   // antes tipo_servicio
+  fechaInicio      DateTime // antes fecha
+  horaInicio       String   // antes hora
+  cantidadMascotas Int
+  usuario          Usuario  @relation(fields: [id_usuario], references: [id])
+  id_usuario       Int
+
+  createdAt DateTime @default(now())
+}
+
