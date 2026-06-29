@@ -13,7 +13,7 @@ const app = express();
 // 2. Configurar CORS (Usando los imports modernos que ya tenías)
 app.use(cors({
   origin: [
-    'http://localhost:5173',                  // Para cuando pruebes en tu compu
+    'postgresql://postgres:iboSLhUoYjlVKaMrVVtOChvBGCRUvMjT@reseau.proxy.rlwy.net:16565/railway',                  // Para cuando pruebes en tu compu
     'https://pet-hub-sable.vercel.app'        // Tu frontend de Vercel
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
