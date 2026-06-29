@@ -5,27 +5,34 @@ import authRoutes from "./routes/auth.routes.js";
 import turnosRoutes from "./routes/turnos.routes.js";
 import adminRoutes from "./routes/admin.routes.js";
 
-// Cargo las variables de entorno (como DATABASE_URL, JWT_SECRET, etc)
+// 1. Cargar variables de entorno
 dotenv.config();
 
 const app = express();
 
-// Habilito CORS para permitir que el frontend pueda hacer peticiones al backend.
-app.use(cors());
+// 2. Configurar CORS (Usando los imports modernos que ya tenías)
+app.use(cors({
+  origin: [
+    'http://localhost:5173',                  // Para cuando pruebes en tu compu
+    'https://pet-hub-sable.vercel.app'        // Tu frontend de Vercel
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
 
-// Middleware para que Express pueda leer JSON enviados desde el frontend.
+// 3. Middleware para leer JSON
 app.use(express.json());
 
-// Rutas separadas por responsabilidad.
+// 4. Rutas de tu API
 app.use("/api/auth", authRoutes);
 app.use("/api/turnos", turnosRoutes);
 app.use("/api/admin", adminRoutes);
-
-app.use("/api/usuarios", authRoutes);
+app.use("/api/usuarios", authRoutes); // Mantengo esta por si la usas en el login de la foto
 
 app.get("/", (req, res) => res.send("API funcionando"));
 
-// Puerto configurable por entorno.
-app.listen(process.env.PORT || 5000, () => {
-  console.log("Servidor corriendo en puerto 5000");
+// 5. Puerto dinámico para producción (¡Súper importante para Render/Railway!)
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
