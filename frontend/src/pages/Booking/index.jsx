@@ -111,11 +111,11 @@ if (fechaSeleccionada > maxDate) {
 
   return (
     <div className={styles.bookingContainer}>
-        <h2 className={styles.title}>Confia en el buen cuidado de tu mascota</h2>
       <div className={styles.card}>
-        <h2 className={styles.title}>Reservar un turno</h2>
+        <div className={styles.brandBadge}>PetHub</div>
+        <h2 className={styles.title}>Reservá tu turno</h2>
         <p className={styles.subtitle}>
-          Elegí el servicio y definí los detalles de tu cita
+          Elegí el servicio ideal y dejá todo listo para tu mascota
         </p>
 
         <form onSubmit={handleSubmit} className={styles.form}>

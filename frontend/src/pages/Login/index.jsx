@@ -35,7 +35,13 @@ export default function Login() {
     try {
       const data = await api.login(form);
       localStorage.setItem("token", data.token);
-      navigate("/reservar");
+
+      const payload = JSON.parse(atob(data.token.split(".")[1]));
+      if (payload.role === "ADMIN") {
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/home");
+      }
     } catch (err) {
       setError(err.message || "Error al iniciar sesión");
     } finally {
@@ -46,8 +52,9 @@ export default function Login() {
   return (
     <div className={styles.loginContainer}>
       <div className={styles.formWrapper}>
-        <h1 className={styles.title}>¡Bienvenido a Huellitas Red!</h1>
-        <h2 className={styles.subtitle}>Inicia sesión en tu cuenta</h2>
+        <div className={styles.brandBadge}>PetHub</div>
+        <h1 className={styles.title}>Bienvenido de nuevo</h1>
+        <h2 className={styles.subtitle}>Ingresá para gestionar tus turnos con tranquilidad</h2>
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <label className="sr-only">Correo electrónico</label>

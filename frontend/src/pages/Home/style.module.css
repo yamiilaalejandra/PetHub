@@ -1,139 +1,207 @@
-/* 🌈 Estructura general */
 .home {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
   min-height: 100vh;
-  background: linear-gradient(to bottom, #e9ddff, #ffffff);
-  padding: 2rem;
-  color: #4b3b73;
-  font-family: "Poppins", sans-serif;
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  padding: 2rem 1.5rem 4rem;
 }
 
-/* 🏠 Encabezado */
-.header {
-  max-width: 800px;
-  margin-bottom: 2rem;
-}
-
-.title {
-  color: #7a5af5;
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-}
-
-.subtitle {
-  font-size: 1rem;
-  color: #4a4a4a;
-  line-height: 1.6;
-}
-
-.highlight {
-  color: #7a5af5;
-  font-weight: 600;
-}
-
-/* 🐾 Cards de servicios */
-.services {
-  display: flex;
+.hero {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
   gap: 2rem;
-  justify-content: center;
-  margin: 2rem 0;
+  align-items: center;
+  padding: 2rem 0 3rem;
+}
+
+.heroContent h1 {
+  font-size: clamp(2rem, 3.2vw, 3.2rem);
+  line-height: 1.1;
+  color: #0f172a;
+  margin: 0.7rem 0 1rem;
+}
+
+.heroContent p {
+  font-size: 1.05rem;
+  color: #64748b;
+  line-height: 1.8;
+  max-width: 650px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.12);
+  color: #047857;
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.heroActions {
+  display: flex;
+  gap: 1rem;
+  margin: 1.5rem 0 2rem;
   flex-wrap: wrap;
 }
 
-.card {
-  background-color: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
-  width: 200px;
-  height: 200px;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  cursor: pointer;
-}
-
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 20px rgba(122, 90, 245, 0.2);
-}
-
-.card img {
-  width: 200px;
-  height: 150px;
-  object-fit: contain;
-
-}
-
-.card h3 {
-  font-size: 0.95rem;
-  color: #4b3b73;
-}
-
-/* 💜 Botón CTA */
-.cta {
-  margin-top: 1rem;
-}
-
-.button {
-  background-color: #7a5af5;
-  color: white;
+.primaryButton,
+.secondaryButton {
   border: none;
-  border-radius: 30px;
-  padding: 0.8rem 2rem;
-  font-size: 1rem;
+  border-radius: 999px;
+  padding: 0.9rem 1.3rem;
+  font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(122, 90, 245, 0.4);
-  transition: background-color 0.3s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.button:hover {
-  background-color: #6945e0;
+.primaryButton {
+  background: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
+  color: white;
+  box-shadow: 0 12px 30px rgba(16, 185, 129, 0.25);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-/* 📱 Footer */
-.footer {
-  margin-top: 3rem;
-  font-size: 0.9rem;
+.secondaryButton {
+  background: white;
+  color: #0f172a;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.08);
 }
 
-.socials {
-  margin-top: 0.5rem;
+.primaryButton:hover,
+.secondaryButton:hover,
+.serviceCard:hover {
+  transform: translateY(-2px);
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.statCard {
+  background: white;
+  border-radius: 16px;
+  padding: 1rem;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  color: #334155;
+}
+
+.statCard strong {
+  font-size: 1.1rem;
+  color: #0f172a;
+}
+
+.heroVisual {
   display: flex;
   justify-content: center;
-  gap: 1.5rem;
 }
 
-.socials a {
-  color: #7a5af5;
-  font-size: 1.5rem;
-  transition: color 0.3s ease;
+.visualCard {
+  width: 100%;
+  max-width: 380px;
+  background: linear-gradient(135deg, #0f172a 0%, #111827 100%);
+  color: white;
+  border-radius: 24px;
+  padding: 2rem;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.2);
 }
 
-.socials a:hover {
-  color: #4b3b73;
+.visualBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  margin-bottom: 1rem;
 }
 
-.icon {
-  color: #7a5af5;
+.visualCard h3 {
+  font-size: 1.45rem;
+  margin-bottom: 0.6rem;
+}
+
+.visualCard p {
+  color: #cbd5e1;
+  line-height: 1.7;
+}
+
+.servicesSection {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 0 2rem;
+}
+
+.sectionHeader {
+  margin-bottom: 1.2rem;
+}
+
+.sectionHeader h2 {
   font-size: 1.6rem;
-  transition: color 0.3s ease, transform 0.2s ease;
+  color: #0f172a;
+  margin-top: 0.5rem;
 }
 
-.icon:hover {
-  color: #4b3b73;
-  transform: scale(1.1);
+.servicesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
 }
 
-/* 📱 Responsive */
-@media (max-width: 768px) {
-  .services {
-    flex-direction: column;
-    align-items: center;
+.serviceCard {
+  border: none;
+  background: white;
+  border-radius: 20px;
+  padding: 1.2rem;
+  text-align: left;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.serviceCard img {
+  width: 100%;
+  max-height: 170px;
+  object-fit: cover;
+  border-radius: 16px;
+  margin-bottom: 0.8rem;
+}
+
+.serviceCard h3 {
+  color: #0f172a;
+  margin-bottom: 0.35rem;
+}
+
+.serviceCard p {
+  color: #64748b;
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
   }
 
-  .card {
-    width: 80%;
+  .servicesGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .home {
+    padding: 1rem 0.9rem 2.5rem;
+  }
+
+  .statsGrid {
+    grid-template-columns: 1fr;
   }
 }

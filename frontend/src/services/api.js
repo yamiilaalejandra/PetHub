@@ -22,4 +22,13 @@ export const api = {
   login: (data) => request("/api/usuarios/login", "POST", data),
   reservar: (data) => request("/api/turnos", "POST", data),
   getTurnos: () => request("/api/turnos"),
+  getAdminDashboard: () => request("/api/admin/dashboard"),
+  getAdminTurnos: (filters = {}) => {
+    const params = new URLSearchParams();
+    Object.entries(filters).forEach(([key, value]) => {
+      if (value) params.append(key, value);
+    });
+    const query = params.toString();
+    return request(`/api/admin/turnos${query ? `?${query}` : ""}`);
+  },
 };

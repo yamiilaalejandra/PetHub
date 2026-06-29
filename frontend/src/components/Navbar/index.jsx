@@ -1,46 +1,50 @@
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./style.module.css";
-import logo from "../../assets/logo.png"
+import { PawPrint, LogOut, CalendarDays, History, PlusCircle, UserCircle, LayoutDashboard, Users } from "lucide-react";
 
 export default function Navbar() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
+  const isAdmin = token ? JSON.parse(atob(token.split(".")[1])).role === "ADMIN" : false;
 
   const handleLogout = () => {
+    const confirmed = window.confirm("¿Querés cerrar sesión?");
+    if (!confirmed) return;
+
     localStorage.removeItem("token");
     navigate("/login");
   };
 
   return (
     <nav className={styles.navbar}>
-      {/*  Logo */}
-      <div className={styles.logoContainer}>
-        
-        <Link to="/" className={styles.brand}><img src={logo} alt="Huellitas Red logo" className={styles.logo} /></Link>
-      </div>
+      <Link to="/" className={styles.brand}>
+        <div className={styles.brandIcon}><PawPrint size={18} /></div>
+        <span>PetHub</span>
+      </Link>
 
-      {/* Links */}
       <div className={styles.links}>
         {token ? (
-          <>
-            <Link to="/" className={styles.link}>Inicio</Link>
-            <Link to="/mis-reservas" className={styles.link}>Mis Turnos</Link>
-            <Link to="/reservar" className={styles.link}>Nuevo Turno</Link>
-            <Link to="/appointments/history" className={styles.link}>Historial</Link>
-            <Link to="/profile" className={styles.link}>Perfil</Link>
-            <button onClick={handleLogout} className={styles.logout}>Cerrar sesión</button>
-          </>
+          isAdmin ? (
+            <>
+              <Link to="/admin/dashboard" className={styles.link}><LayoutDashboard size={16} /> Dashboard</Link>
+              <Link to="/admin/turnos" className={styles.link}><CalendarDays size={16} /> Todos los Turnos</Link>
+              <Link to="/admin/turnos/history" className={styles.link}><History size={16} /> Historial</Link>
+              <Link to="/admin/usuarios" className={styles.link}><Users size={16} /> Usuarios</Link>
+              <button onClick={handleLogout} className={styles.logout}><LogOut size={16} /> Cerrar sesión</button>
+            </>
+          ) : (
+            <>
+              <Link to="/home" className={styles.link}><CalendarDays size={16} /> Inicio</Link>
+              <Link to="/mis-reservas" className={styles.link}><CalendarDays size={16} /> Mis Turnos</Link>
+              <Link to="/reservar" className={styles.link}><PlusCircle size={16} /> Nuevo Turno</Link>
+              <button onClick={handleLogout} className={styles.logout}><LogOut size={16} /> Cerrar sesión</button>
+            </>
+          )
         ) : (
           <>
-          <Link to="/" className={styles.link}>
-              Home
-            </Link>
-            <Link to="/login" className={styles.link}>
-              Iniciar sesión
-            </Link>
-            <Link to="/register" className={styles.link}>
-              Registrarse
-            </Link>
+            <Link to="/" className={styles.link}>Inicio</Link>
+            <Link to="/login" className={styles.link}>Iniciar sesión</Link>
+            <Link to="/register" className={styles.link}>Registrarse</Link>
           </>
         )}
       </div>

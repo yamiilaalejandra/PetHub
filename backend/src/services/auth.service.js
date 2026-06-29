@@ -56,7 +56,7 @@ export const authService = {
 
     // Genero token
     const token = jwt.sign(
-      { id: user.id, correo: user.correo },
+      { id: user.id, correo: user.correo, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: "1d" }
     );

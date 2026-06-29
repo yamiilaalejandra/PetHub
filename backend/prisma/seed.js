@@ -31,15 +31,38 @@ async function main() {
     ]
   });
 
-  const passwordHash = await bcrypt.hash("PetHub123", 10);
-  await prisma.usuario.create({
-    data: {
-      nombre: "Demo",
-      apellido: "Usuario",
-      correo: "demo@pethub.com",
-      password_hash: passwordHash
-    }
+  const existingAdmin = await prisma.usuario.findFirst({
+    where: { role: "ADMIN" }
   });
+
+  if (!existingAdmin) {
+    const passwordHash = await bcrypt.hash("Admin123*", 10);
+    await prisma.usuario.create({
+      data: {
+        nombre: "Admin",
+        apellido: "PetHub",
+        correo: "admin@pethub.com",
+        password_hash: passwordHash,
+        role: "ADMIN"
+      }
+    });
+  }
+
+  const existingDemo = await prisma.usuario.findUnique({
+    where: { correo: "demo@pethub.com" }
+  });
+
+  if (!existingDemo) {
+    const passwordHash = await bcrypt.hash("PetHub123", 10);
+    await prisma.usuario.create({
+      data: {
+        nombre: "Demo",
+        apellido: "Usuario",
+        correo: "demo@pethub.com",
+        password_hash: passwordHash
+      }
+    });
+  }
 }
 
 main()

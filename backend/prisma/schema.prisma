@@ -15,6 +15,11 @@ enum EstadoTurno {
   CANCELADO
 }
 
+enum Role {
+  USER
+  ADMIN
+}
+
 // Usuario que se registra en la plataforma
 // Relación 1:N con Mascota y Turno
 model Usuario {
@@ -23,6 +28,7 @@ model Usuario {
   apellido      String
   correo        String    @unique
   password_hash String
+  role          Role      @default(USER)
   mascotas      Mascota[]
   turnos        Turno[]
 }

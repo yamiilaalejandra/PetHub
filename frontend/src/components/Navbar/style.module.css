@@ -1,79 +1,78 @@
 .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: linear-gradient(to bottom, #e9ddff, #e9ddff);
-  padding: 0.8rem 2rem;
   position: sticky;
   top: 0;
   z-index: 100;
-}
-
-/* Logo */
-.logoContainer {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 0.5rem;
-}
-
-.logo {
-  width: 120px;
-  height:45px;
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.9);
 }
 
 .brand {
-  color: #7a5af5;
-  font-size: 1.2rem;
-  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
   text-decoration: none;
+  color: #0f172a;
+  font-weight: 800;
+  font-size: 1.05rem;
 }
 
-/* Links */
+.brandIcon {
+  display: grid;
+  place-items: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
+  color: white;
+}
+
 .links {
   display: flex;
+  gap: 0.7rem;
   align-items: center;
-  gap: 1.5rem;
+  flex-wrap: wrap;
 }
 
-.link {
-  color: #4b3b73;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s ease;
-}
-
-.link:hover {
-  color: #7a5af5;
-}
-
-/* Botón de salida */
+.link,
 .logout {
-  background-color: #7a5af5;
-  color: white;
-  border: none;
-  border-radius: 20px;
-  padding: 0.4rem 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  text-decoration: none;
+  color: #334155;
+  padding: 0.6rem 0.8rem;
+  border-radius: 999px;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
+.link:hover,
 .logout:hover {
-  background-color: #6945e0;
+  background: #f1f5f9;
+  color: #0f172a;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+.logout {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #ef4444;
+}
+
+@media (max-width: 760px) {
   .navbar {
-    flex-direction: column;
-    align-items: flex-start;
     padding: 1rem;
+    flex-direction: column;
+    gap: 0.8rem;
+    align-items: flex-start;
   }
 
   .links {
-    flex-direction: column;
-    align-items: flex-start;
     width: 100%;
-    margin-top: 0.5rem;
+    justify-content: flex-start;
   }
 }

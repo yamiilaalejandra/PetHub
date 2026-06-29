@@ -1,0 +1,49 @@
+.page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #ecfeff 100%);
+}
+
+.card {
+  width: min(100%, 440px);
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.12);
+  color: #047857;
+  font-weight: 700;
+  margin-bottom: 0.9rem;
+}
+
+.title {
+  margin: 0 0 0.6rem;
+  color: #0f172a;
+}
+
+.message {
+  margin: 0 0 1.2rem;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+.button {
+  display: inline-block;
+  padding: 0.8rem 1.2rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+}

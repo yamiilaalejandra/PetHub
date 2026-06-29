@@ -91,8 +91,9 @@ export default function Register() {
   return (
     <div className={styles.registerContainer}>
       <div className={styles.formWrapper}>
-        <h2 className={styles.title}>Registro de para acceder a Huellitas Red.</h2>
-        <p className={styles.subtitle}>Crea tu cuenta en segundos</p>
+        <div className={styles.brandBadge}>PetHub</div>
+        <h2 className={styles.title}>Crea tu cuenta</h2>
+        <p className={styles.subtitle}>Reserva servicios y mantén a tu mascota siempre cuidada</p>
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <label className="sr-only">Nombre</label>

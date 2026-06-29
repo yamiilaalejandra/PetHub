@@ -2,139 +2,124 @@ import styles from "./style.module.css";
 import guarderiaIcon from "../../assets/guarderia.png";
 import paseoIcon from "../../assets/paseo.png";
 import cuidadoIcon from "../../assets/cuidado.png";
-import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import ServiceModal from "../../components/ServiceModal"; 
-
+import ServiceModal from "../../components/ServiceModal";
+import { CalendarDays, ShieldCheck, Sparkles, PawPrint, ArrowRight } from "lucide-react";
 
 export default function Home() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
-
   const [open, setOpen] = useState(false);
-const [selectedService, setSelectedService] = useState(null);
+  const [selectedService, setSelectedService] = useState(null);
 
-const SERVICES_INFO = {
-  guarderia: {
-    title: "Guardería Canina",
-    description:
-      "Ofrecemos cuidado durante el día, juegos supervisados, integración con otros perros y seguimiento constante.",
-  },
-  paseo: {
-    title: "Paseo Canino",
-    description:
-      "Paseos personalizados, seguros y con duración adecuada para que tu mascota libere energía y sea feliz.",
-  },
-  cuidado: {
-    title: "Cuidado e Higiene",
-    description:
-      "Baños, cepillado, limpieza y cuidados básicos para mantener a tu mascota en perfectas condiciones.",
-  },
-};
-
-const openServiceModal = (key) => {
-  setSelectedService({
-    ...SERVICES_INFO[key],
-    onReserve: () => {
-      if (token) navigate(`/reservar?servicio=${key}`);
-      else navigate("/login");
+  const SERVICES_INFO = {
+    guarderia: {
+      title: "Guardería premium",
+      description: "Cuidado diario con vigilancia, juegos y descanso en un entorno seguro y confortable.",
     },
-  });
+    paseo: {
+      title: "Paseos personalizados",
+      description: "Rutas adaptadas, seguimiento y atención para que cada salida sea divertida y segura.",
+    },
+    cuidado: {
+      title: "Cuidado e higiene",
+      description: "Baños, cepillado y atención de bienestar para mantener a tu mascota impecable.",
+    },
+  };
 
-  setOpen(true);
-};
+  const quickStats = [
+    { label: "Turnos de hoy", value: "12", icon: CalendarDays },
+    { label: "Atención premium", value: "24/7", icon: ShieldCheck },
+    { label: "Satisfacción", value: "98%", icon: Sparkles },
+  ];
 
+  const openServiceModal = (key) => {
+    setSelectedService({
+      ...SERVICES_INFO[key],
+      onReserve: () => {
+        if (token) navigate(`/reservar?servicio=${key}`);
+        else navigate("/login");
+      },
+    });
+
+    setOpen(true);
+  };
 
   const handleClick = () => {
-    if (token) {
-      navigate("/reservar");
-    } else {
-      navigate("/login");
-    }
+    if (token) navigate("/reservar");
+    else navigate("/login");
   };
 
   return (
     <div className={styles.home}>
-      {/* Header */}
-      <header className={styles.header}>
-        <h1 className={styles.title}>
-          Huellitas Red: El Cuidado Integral para tu Mascota
-        </h1>
-        <p className={styles.subtitle}>
-          Ya sea un paseo, una sesión de higiene o un día de guardería, podés
-          gestionar todos los servicios para tu mascota haciendo clic en el
-          botón <span className={styles.highlight}>“Reservar Turno”</span>.
-        </p>
-      </header>
+      <section className={styles.hero}>
+        <div className={styles.heroContent}>
+          <span className={styles.eyebrow}>PetHub • Gestión inteligente para mascotas</span>
+          <h1>Todo lo que tu mascota necesita, en un solo lugar.</h1>
+          <p>
+            Organiza servicios, turnos y seguimiento de bienestar con una experiencia simple, rápida y confiable.
+          </p>
+          <div className={styles.heroActions}>
+            <button className={styles.primaryButton} onClick={handleClick}>
+              Reservar turno <ArrowRight size={18} />
+            </button>
+            <button className={styles.secondaryButton} onClick={() => navigate("/appointments/history")}>
+              Ver historial
+            </button>
+          </div>
 
-      {/* Services Section */}
-      <section className={styles.services}>
-        <div 
-  className={styles.card}
-  onClick={() => openServiceModal("guarderia")}
->
-  <img src={guarderiaIcon} alt="Guardería Canina" />
-  <h3>GUARDERÍA CANINA</h3>
-</div>
+          <div className={styles.statsGrid}>
+            {quickStats.map((stat) => {
+              const Icon = stat.icon;
+              return (
+                <div key={stat.label} className={styles.statCard}>
+                  <Icon size={20} />
+                  <strong>{stat.value}</strong>
+                  <span>{stat.label}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
 
-<div 
-  className={styles.card}
-  onClick={() => openServiceModal("paseo")}
->
-  <img src={paseoIcon} alt="Paseo Canino" />
-  <h3>PASEO CANINO</h3>
-</div>
-
-<div 
-  className={styles.card}
-  onClick={() => openServiceModal("cuidado")}
->
-  <img src={cuidadoIcon} alt="Cuidado e Higiene" />
-  <h3>CUIDADO E HIGIENE CANINO</h3>
-</div>
-
+        <div className={styles.heroVisual}>
+          <div className={styles.visualCard}>
+            <div className={styles.visualBadge}><PawPrint size={18} /> Cuidado premium</div>
+            <h3>Tu mascota, en buenas manos</h3>
+            <p>Profesionales certificados, horarios flexibles y atención personalizada para cada etapa.</p>
+          </div>
+        </div>
       </section>
 
-      {/* Call To Action */}
-      <div className={styles.cta}>
-        <button 
-          className={styles.button}
-          onClick={handleClick}
-        >
-          Reservar Turno
-        </button>
-      </div>
-
-      {/* Footer */}
-      <footer className={styles.footer}>
-        <p>Conectate con nosotros</p>
-        <div className={styles.socials}>
-              <a 
-                href="https://www.facebook.com/" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                aria-label="Facebook"
-              >
-            <FaFacebook className={styles.icon} />
-          </a>
-              <a 
-                href="https://www.instagram.com/" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                aria-label="Instagram"
-              >
-            <FaInstagram className={styles.icon} />
-          </a>
+      <section className={styles.servicesSection}>
+        <div className={styles.sectionHeader}>
+          <span className={styles.eyebrow}>Servicios destacados</span>
+          <h2>Elegí el servicio perfecto para tu compañero</h2>
         </div>
-      </footer>
-      <ServiceModal 
-  open={open}
-  onClose={() => setOpen(false)}
-  service={selectedService}
-/>
 
+        <div className={styles.servicesGrid}>
+          <button className={styles.serviceCard} onClick={() => openServiceModal("guarderia")}>
+            <img src={guarderiaIcon} alt="Guardería premium" />
+            <h3>Guardería</h3>
+            <p>Estancia segura y divertida con supervisión constante.</p>
+          </button>
+
+          <button className={styles.serviceCard} onClick={() => openServiceModal("paseo")}>
+            <img src={paseoIcon} alt="Paseos personalizados" />
+            <h3>Paseos</h3>
+            <p>Salidas a medida para liberar energía y disfrutar.</p>
+          </button>
+
+          <button className={styles.serviceCard} onClick={() => openServiceModal("cuidado")}>
+            <img src={cuidadoIcon} alt="Cuidado e higiene" />
+            <h3>Cuidado e higiene</h3>
+            <p>Atención completa para mantener su bienestar al día.</p>
+          </button>
+        </div>
+      </section>
+
+      <ServiceModal open={open} onClose={() => setOpen(false)} service={selectedService} />
     </div>
-    
   );
 }

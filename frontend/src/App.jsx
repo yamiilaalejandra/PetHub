@@ -10,6 +10,9 @@ import MyBookings from "./pages/MyBookings";
 import AppointmentDetail from "./pages/AppointmentDetail";
 import AppointmentHistory from "./pages/AppointmentHistory";
 import AppointmentEdit from "./pages/AppointmentEdit";
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminTurnos from "./pages/AdminTurnos";
+import AccessDenied from "./pages/AccessDenied";
 
 function App() {
   return (
@@ -59,6 +62,23 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/admin/dashboard"
+          element={
+            <ProtectedRoute requireAdmin>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/turnos"
+          element={
+            <ProtectedRoute requireAdmin>
+              <AdminTurnos />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/access-denied" element={<AccessDenied />} />
         <Route path="/success" element={<Success />} />
       </Routes>
     </Router>

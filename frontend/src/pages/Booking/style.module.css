@@ -1,37 +1,48 @@
 .bookingContainer {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(to bottom, #e9ddff, #ffffff);
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #ecfeff 100%);
   font-family: "Poppins", sans-serif;
 }
 
 .card {
-  background-color: #fff;
-  border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(122, 90, 245, 0.1);
-  padding: 2.5rem 3rem;
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+  padding: 2rem 1.6rem;
   text-align: center;
   width: 100%;
-  max-width: 500px;
-  border: 1px solid #dcd6f7;
+  max-width: 520px;
+}
+
+.brandBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.12);
+  color: #047857;
+  font-weight: 700;
+  margin-bottom: 0.9rem;
 }
 
 .title {
-  color: #7a5af5;
+  color: #0f172a;
   font-size: 1.5rem;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.35rem;
 }
 
 .subtitle {
-  color: #4b3b73;
-  font-size: 1rem;
-  margin-bottom: 1.5rem;
+  color: #64748b;
+  font-size: 0.98rem;
+  margin-bottom: 1.2rem;
+  line-height: 1.6;
 }
 
-/* Form */
 .form {
   display: flex;
   flex-direction: column;
@@ -40,12 +51,11 @@
 
 .label {
   text-align: left;
-  color: #7a5af5;
-  font-weight: 500;
-  margin-top: 0.5rem;
+  color: #0f172a;
+  font-weight: 600;
+  margin-top: 0.25rem;
 }
 
-/* Service Buttons */
 .serviceButtons {
   display: flex;
   justify-content: center;
@@ -54,27 +64,26 @@
 }
 
 .serviceBtn {
-  background-color: #f7f3ff;
-  color: #4b3b73;
-  border: 1px solid #dcd6f7;
-  border-radius: 25px;
-  padding: 0.6rem 1rem;
-  font-size: 0.9rem;
+  background: #f8fafc;
+  color: #334155;
+  border: 1px solid #e2e8f0;
+  border-radius: 999px;
+  padding: 0.65rem 1rem;
+  font-size: 0.95rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .serviceBtn:hover {
-  background-color: #e9e0ff;
+  background: #ecfeff;
 }
 
 .active {
-  background-color: #7a5af5;
+  background: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
   color: white;
-  border-color: #7a5af5;
+  border-color: transparent;
 }
 
-/* Fecha y hora */
 .dateTime {
   display: flex;
   justify-content: space-between;
@@ -83,70 +92,65 @@
 
 .dateTime input {
   flex: 1;
-  padding: 0.7rem;
-  border-radius: 25px;
-  border: 1px solid #dcd6f7;
-  background-color: #faf8ff;
+  padding: 0.8rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
   text-align: center;
 }
 
 .dateTime input:focus {
-  border-color: #7a5af5;
+  border-color: #14b8a6;
   outline: none;
 }
 
-/* Counter */
 .counter {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  background-color: #faf8ff;
-  border: 1px solid #dcd6f7;
-  border-radius: 25px;
-  padding: 0.5rem 1rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 999px;
+  padding: 0.6rem 1rem;
   width: fit-content;
   margin: 0 auto;
-  color:#4b3b73
+  color: #334155;
 }
 
 .counterBtn {
-  background-color: transparent;
+  background: transparent;
   border: none;
-  color: #7a5af5;
-  font-size: 1.4rem;
+  color: #0f766e;
+  font-size: 1.3rem;
   cursor: pointer;
 }
 
-.counterBtn:hover {
-  color: #6945e0;
-}
-
-/* Submit */
 .submitBtn {
-  background-color: #7a5af5;
+  background: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
   color: white;
   border: none;
-  border-radius: 25px;
-  padding: 0.8rem;
+  border-radius: 999px;
+  padding: 0.9rem;
   font-size: 1rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 1rem;
-  height: 45px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin-top: 0.5rem;
+  height: 46px;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 12px 30px rgba(16, 185, 129, 0.22);
 }
 
 .submitBtn:hover {
-  background-color: #6945e0;
+  transform: translateY(-1px);
 }
 
-/* Responsive */
 @media (max-width: 480px) {
   .card {
-    padding: 2rem 1.5rem;
+    padding: 1.7rem 1.1rem;
   }
 
   .dateTime {

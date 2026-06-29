@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import authRoutes from "./routes/auth.routes.js";
 import turnosRoutes from "./routes/turnos.routes.js";
+import adminRoutes from "./routes/admin.routes.js";
 
 // Cargo las variables de entorno (como DATABASE_URL, JWT_SECRET, etc)
 dotenv.config();
@@ -18,6 +19,7 @@ app.use(express.json());
 // Rutas separadas por responsabilidad.
 app.use("/api/auth", authRoutes);
 app.use("/api/turnos", turnosRoutes);
+app.use("/api/admin", adminRoutes);
 
 app.use("/api/usuarios", authRoutes);
 
