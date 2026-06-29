@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API_URL = import.meta.env.VITE_API_URL || "pet-hub-sable.vercel.app";
 
 async function request(endpoint, method = "GET", data) {
   const config = {
