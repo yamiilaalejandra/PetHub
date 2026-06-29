@@ -40,5 +40,16 @@ export const adminController = {
     } catch (err) {
       return res.status(400).json({ message: err.message });
     }
+  },
+
+  async actualizarTurno(req, res) {
+    try {
+      const { id } = req.params;
+      const data = req.body;
+      const turno = await adminService.actualizarTurno(Number(id), data);
+      return res.json({ message: "Turno actualizado correctamente", turno });
+    } catch (err) {
+      return res.status(400).json({ message: err.message });
+    }
   }
 };

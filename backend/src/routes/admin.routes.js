@@ -9,5 +9,6 @@ router.get("/dashboard", authMiddleware, requireAdmin, adminController.dashboard
 router.get("/turnos", authMiddleware, requireAdmin, adminController.listarTurnos);
 router.get("/turnos/history", authMiddleware, requireAdmin, adminController.historial);
 router.get("/turnos/:id", authMiddleware, requireAdmin, adminController.detalleTurno);
+router.patch("/turnos/:id", authMiddleware, requireAdmin, adminController.actualizarTurno);
 
 export default router;

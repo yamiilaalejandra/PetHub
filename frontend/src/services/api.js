@@ -31,4 +31,6 @@ export const api = {
     const query = params.toString();
     return request(`/api/admin/turnos${query ? `?${query}` : ""}`);
   },
+  getAdminTurnoById: (id) => request(`/api/admin/turnos/${id}`),
+  updateAdminTurno: (id, data) => request(`/api/admin/turnos/${id}`, "PATCH", data),
 };

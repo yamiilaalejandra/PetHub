@@ -12,7 +12,7 @@ export default function Navbar() {
     if (!confirmed) return;
 
     localStorage.removeItem("token");
-    navigate("/login");
+    navigate("/");
   };
 
   return (
@@ -26,15 +26,13 @@ export default function Navbar() {
         {token ? (
           isAdmin ? (
             <>
-              <Link to="/admin/dashboard" className={styles.link}><LayoutDashboard size={16} /> Dashboard</Link>
+              <Link to="/admin/dashboard" className={styles.link}><LayoutDashboard size={16} /> Panel Admin</Link>
               <Link to="/admin/turnos" className={styles.link}><CalendarDays size={16} /> Todos los Turnos</Link>
-              <Link to="/admin/turnos/history" className={styles.link}><History size={16} /> Historial</Link>
-              <Link to="/admin/usuarios" className={styles.link}><Users size={16} /> Usuarios</Link>
               <button onClick={handleLogout} className={styles.logout}><LogOut size={16} /> Cerrar sesión</button>
             </>
           ) : (
             <>
-              <Link to="/home" className={styles.link}><CalendarDays size={16} /> Inicio</Link>
+              <Link to="/" className={styles.link}><CalendarDays size={16} /> Inicio</Link>
               <Link to="/mis-reservas" className={styles.link}><CalendarDays size={16} /> Mis Turnos</Link>
               <Link to="/reservar" className={styles.link}><PlusCircle size={16} /> Nuevo Turno</Link>
               <button onClick={handleLogout} className={styles.logout}><LogOut size={16} /> Cerrar sesión</button>

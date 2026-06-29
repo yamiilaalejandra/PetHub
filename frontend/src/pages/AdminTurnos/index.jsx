@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { api } from "../../services/api";
 import styles from "./style.module.css";
+import { Eye, X, User, PawPrint, Calendar, Clock, MapPin, AlertCircle, CheckCircle, Bookmark } from "lucide-react";
 
 export default function AdminTurnos() {
   const [turnos, setTurnos] = useState([]);
@@ -14,6 +15,14 @@ export default function AdminTurnos() {
     fecha: "",
     order: "desc"
   });
+
+  // Modal States
+  const [selectedTurno, setSelectedTurno] = useState(null);
+  const [newEstado, setNewEstado] = useState("");
+  const [newObservaciones, setNewObservaciones] = useState("");
+  const [updating, setUpdating] = useState(false);
+  const [updateError, setUpdateError] = useState("");
+  const [updateSuccess, setUpdateSuccess] = useState("");
 
   const loadTurnos = async () => {
     try {
@@ -47,6 +56,62 @@ export default function AdminTurnos() {
     confirmados: turnos.filter((t) => t.estado === "CONFIRMADO").length,
     cancelados: turnos.filter((t) => t.estado === "CANCELADO").length
   }), [turnos]);
+
+  const handleVerDetalles = (turno) => {
+    setSelectedTurno(turno);
+    setNewEstado(turno.estado);
+    setNewObservaciones(turno.observaciones || "");
+    setUpdateError("");
+    setUpdateSuccess("");
+  };
+
+  const handleCloseModal = () => {
+    setSelectedTurno(null);
+  };
+
+  const handleUpdateTurno = async (e) => {
+    e.preventDefault();
+    if (!selectedTurno) return;
+
+    setUpdating(true);
+    setUpdateError("");
+    setUpdateSuccess("");
+
+    try {
+      await api.updateAdminTurno(selectedTurno.id, {
+        estado: newEstado,
+        observaciones: newObservaciones
+      });
+
+      // Update local state
+      setTurnos((prev) =>
+        prev.map((t) =>
+          t.id === selectedTurno.id
+            ? { ...t, estado: newEstado, observaciones: newObservaciones }
+            : t
+        )
+      );
+
+      setUpdateSuccess("Turno actualizado correctamente.");
+      
+      // Update selectedTurno reference to show new values in modal
+      setSelectedTurno((prev) => ({
+        ...prev,
+        estado: newEstado,
+        observaciones: newObservaciones
+      }));
+
+      // Close modal after 1.5s
+      setTimeout(() => {
+        handleCloseModal();
+      }, 1500);
+
+    } catch (err) {
+      setUpdateError(err.message || "Error al actualizar el turno");
+    } finally {
+      setUpdating(false);
+    }
+  };
 
   return (
     <div className={styles.page}>
@@ -98,6 +163,7 @@ export default function AdminTurnos() {
                 <th>Fecha</th>
                 <th>Hora</th>
                 <th>Estado</th>
+                <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -108,12 +174,150 @@ export default function AdminTurnos() {
                   <td>{turno.servicio?.nombre || turno.tipoServicio}</td>
                   <td>{turno.profesional?.nombre || "—"}</td>
                   <td>{new Date(turno.fechaInicio).toLocaleDateString()}</td>
-                  <td>{turno.horaInicio}</td>
-                  <td>{turno.estado}</td>
+                  <td>{turno.horaInicio} hs</td>
+                  <td>
+                    <span className={`${styles.statusBadge} ${styles[turno.estado.toLowerCase()]}`}>
+                      {turno.estado}
+                    </span>
+                  </td>
+                  <td>
+                    <button onClick={() => handleVerDetalles(turno)} className={styles.detailBtn}>
+                      <Eye size={14} /> Detalles
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
+        </div>
+      )}
+
+      {/* Modal de detalles */}
+      {selectedTurno && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalContent}>
+            <div className={styles.modalHeader}>
+              <div>
+                <h3 className={styles.modalTitle}>Detalle del Turno #{selectedTurno.id}</h3>
+                <span className={styles.modalSubtitle}>ID de Turno en Base de Datos</span>
+              </div>
+              <button onClick={handleCloseModal} className={styles.closeBtn}>
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className={styles.modalBody}>
+              <div className={styles.detailsGrid}>
+                {/* Cliente Card */}
+                <div className={styles.infoCard}>
+                  <div className={styles.cardHeader}>
+                    <User size={18} className={styles.cardIcon} />
+                    <h4>Cliente</h4>
+                  </div>
+                  <p><strong>Nombre:</strong> {selectedTurno.usuario?.nombre} {selectedTurno.usuario?.apellido}</p>
+                  <p><strong>Email:</strong> {selectedTurno.usuario?.correo || "—"}</p>
+                </div>
+
+                {/* Mascota Card */}
+                <div className={styles.infoCard}>
+                  <div className={styles.cardHeader}>
+                    <PawPrint size={18} className={styles.cardIcon} />
+                    <h4>Mascota</h4>
+                  </div>
+                  <p><strong>Nombre:</strong> {selectedTurno.mascota?.nombre || "—"}</p>
+                  <p><strong>Especie:</strong> {selectedTurno.mascota?.especie || "—"}</p>
+                  <p><strong>Raza:</strong> {selectedTurno.mascota?.raza || "—"}</p>
+                </div>
+
+                {/* Servicio Card */}
+                <div className={styles.infoCard}>
+                  <div className={styles.cardHeader}>
+                    <Bookmark size={18} className={styles.cardIcon} />
+                    <h4>Servicio</h4>
+                  </div>
+                  <p><strong>Nombre:</strong> {selectedTurno.servicio?.nombre || selectedTurno.tipoServicio}</p>
+                  <p><strong>Cantidad Mascotas:</strong> {selectedTurno.cantidadMascotas}</p>
+                  <p className={styles.descText}>{selectedTurno.servicio?.descripcion || ""}</p>
+                </div>
+
+                {/* Ubicación y Personal Card */}
+                <div className={styles.infoCard}>
+                  <div className={styles.cardHeader}>
+                    <MapPin size={18} className={styles.cardIcon} />
+                    <h4>Ubicación y Profesional</h4>
+                  </div>
+                  <p><strong>Sucursal:</strong> {selectedTurno.sucursal?.nombre || "—"}</p>
+                  <p><strong>Dirección:</strong> {selectedTurno.sucursal?.direccion || "—"}</p>
+                  <p><strong>Profesional:</strong> {selectedTurno.profesional?.nombre || "—"}</p>
+                </div>
+              </div>
+
+              {/* Horario y Observaciones */}
+              <div className={styles.timeSection}>
+                <div className={styles.timeItem}>
+                  <Calendar size={18} />
+                  <span><strong>Fecha:</strong> {new Date(selectedTurno.fechaInicio).toLocaleDateString()}</span>
+                </div>
+                <div className={styles.timeItem}>
+                  <Clock size={18} />
+                  <span><strong>Hora:</strong> {selectedTurno.horaInicio} hs</span>
+                </div>
+              </div>
+
+              {/* Edición de Estado y Observaciones */}
+              <form onSubmit={handleUpdateTurno} className={styles.editForm}>
+                <div className={styles.formGroup}>
+                  <label htmlFor="modalEstado">Cambiar Estado del Turno</label>
+                  <select
+                    id="modalEstado"
+                    value={newEstado}
+                    onChange={(e) => setNewEstado(e.target.value)}
+                    className={styles.modalSelect}
+                  >
+                    <option value="PENDIENTE">PENDIENTE</option>
+                    <option value="CONFIRMADO">CONFIRMADO</option>
+                    <option value="COMPLETADO">COMPLETADO</option>
+                    <option value="CANCELADO">CANCELADO</option>
+                  </select>
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label htmlFor="modalObservaciones">Observaciones / Notas del Administrador</label>
+                  <textarea
+                    id="modalObservaciones"
+                    rows="3"
+                    value={newObservaciones}
+                    onChange={(e) => setNewObservaciones(e.target.value)}
+                    placeholder="Escribí aquí observaciones sobre el turno..."
+                    className={styles.modalTextarea}
+                  />
+                </div>
+
+                {updateError && (
+                  <div className={`${styles.alert} ${styles.alertError}`}>
+                    <AlertCircle size={16} />
+                    <span>{updateError}</span>
+                  </div>
+                )}
+
+                {updateSuccess && (
+                  <div className={`${styles.alert} ${styles.alertSuccess}`}>
+                    <CheckCircle size={16} />
+                    <span>{updateSuccess}</span>
+                  </div>
+                )}
+
+                <div className={styles.modalActions}>
+                  <button type="button" onClick={handleCloseModal} className={styles.btnCancel}>
+                    Cerrar
+                  </button>
+                  <button type="submit" disabled={updating} className={styles.btnSave}>
+                    {updating ? "Guardando..." : "Guardar Cambios"}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
       )}
     </div>

@@ -40,7 +40,7 @@ export default function Login() {
       if (payload.role === "ADMIN") {
         navigate("/admin/dashboard");
       } else {
-        navigate("/home");
+        navigate("/");
       }
     } catch (err) {
       setError(err.message || "Error al iniciar sesión");

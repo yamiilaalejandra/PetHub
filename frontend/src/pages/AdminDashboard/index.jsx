@@ -30,7 +30,7 @@ export default function AdminDashboard() {
     <div className={styles.page}>
       <div className={styles.header}>
         <div className={styles.badge}>Panel de administración</div>
-        <h1 className={styles.title}>Dashboard PetHub</h1>
+        <h1 className={styles.title}>PetHub</h1>
         <p className={styles.subtitle}>Controlá turnos, estado y actividad del sistema.</p>
       </div>
 

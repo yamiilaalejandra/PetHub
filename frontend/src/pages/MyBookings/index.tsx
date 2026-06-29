@@ -9,6 +9,13 @@ type Turno = {
   fechaInicio: string;
   horaInicio: string;
   cantidadMascotas: number;
+  estado: string;
+  servicio?: {
+    nombre: string;
+  };
+  mascota?: {
+    nombre: string;
+  };
 };
 
 export default function MyBookings() {
@@ -43,19 +50,25 @@ export default function MyBookings() {
         )}
 
         <div className={styles.list}>
-          {turnos.map((t) => (
-            <div key={t.id} className={styles.card}>
-              <div className={styles.cardHeader}>
-                <span className={styles.serviceTag}>{t.tipoServicio}</span>
-                <span className={styles.status}>Confirmado</span>
+          {turnos.map((t) => {
+            const estadoClase = t.estado ? t.estado.toLowerCase() : "pendiente";
+            return (
+              <div key={t.id} className={styles.card}>
+                <div className={styles.cardHeader}>
+                  <span className={styles.serviceTag}>{t.servicio?.nombre || t.tipoServicio}</span>
+                  <span className={`${styles.status} ${styles[estadoClase]}`}>
+                    {t.estado || "PENDIENTE"}
+                  </span>
+                </div>
+                <div className={styles.cardBody}>
+                  <p><strong>Mascota:</strong> {t.mascota?.nombre || "Sin mascota asignada"}</p>
+                  <p><strong>Fecha:</strong> {new Date(t.fechaInicio).toLocaleDateString()}</p>
+                  <p><strong>Hora:</strong> {t.horaInicio} hs</p>
+                  <p><strong>Mascotas:</strong> {t.cantidadMascotas}</p>
+                </div>
               </div>
-              <div className={styles.cardBody}>
-                <p><strong>Fecha:</strong> {new Date(t.fechaInicio).toLocaleDateString()}</p>
-                <p><strong>Hora:</strong> {t.horaInicio}</p>
-                <p><strong>Mascotas:</strong> {t.cantidadMascotas}</p>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>

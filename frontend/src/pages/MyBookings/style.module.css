@@ -73,8 +73,32 @@
 }
 
 .status {
-  color: #047857;
   font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  display: inline-block;
+}
+
+.pendiente {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.confirmado {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+.completado {
+  background: #d1fae5;
+  color: #059669;
+}
+
+.cancelado {
+  background: #fee2e2;
+  color: #dc2626;
 }
 
 .cardBody p {

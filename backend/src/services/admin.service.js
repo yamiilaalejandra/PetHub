@@ -109,5 +109,54 @@ export const adminService = {
 
   async getTurnosHistory(filters = {}) {
     return this.getAllTurnos(filters);
+  },
+
+  async actualizarTurno(id, data) {
+    const { estado, observaciones, profesionalId, sucursalId, fechaInicio, horaInicio } = data;
+    const updateData = {};
+
+    if (estado) {
+      const validEstados = ["PENDIENTE", "CONFIRMADO", "COMPLETADO", "CANCELADO"];
+      if (!validEstados.includes(estado.toUpperCase())) {
+        throw new Error("Estado de turno inválido");
+      }
+      updateData.estado = estado.toUpperCase();
+    }
+
+    if (observaciones !== undefined) {
+      updateData.observaciones = observaciones;
+    }
+
+    if (profesionalId !== undefined) {
+      updateData.profesionalId = profesionalId ? Number(profesionalId) : null;
+    }
+
+    if (sucursalId !== undefined) {
+      updateData.sucursalId = sucursalId ? Number(sucursalId) : null;
+    }
+
+    if (fechaInicio) {
+      const fecha = new Date(fechaInicio);
+      if (Number.isNaN(fecha.getTime())) {
+        throw new Error("Fecha inválida");
+      }
+      updateData.fechaInicio = fecha;
+    }
+
+    if (horaInicio) {
+      updateData.horaInicio = horaInicio;
+    }
+
+    return prisma.turno.update({
+      where: { id },
+      data: updateData,
+      include: {
+        usuario: true,
+        mascota: true,
+        servicio: true,
+        profesional: true,
+        sucursal: true
+      }
+    });
   }
 };
