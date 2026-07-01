@@ -1,4 +1,4 @@
-const API_URL = (import.meta.env.VITE_API_URL || "http://localhost:5000").replace(/\/$/, "");
+const API_URL = (import.meta.env.VITE_API_URL || "https://pethub-production-62e4.up.railway.app").replace(/\/$/, "");
 
 async function request(endpoint, method = "GET", data) {
   const config = {
