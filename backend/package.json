@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js",
-    "start": "node src/index.js",
-    "seed": "npx prisma db seed",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "dev": "nodemon src/index.js",
+  "start": "node src/index.js",
+  "postinstall": "prisma generate",
+  "seed": "prisma db seed"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
